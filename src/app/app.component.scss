@@ -1,0 +1,5 @@
+@use 'functions' as functions;
+
+h1 {
+  padding-left: functions.space(2);
+}

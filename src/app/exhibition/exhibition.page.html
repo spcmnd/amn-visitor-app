@@ -1,0 +1,40 @@
+<h2>Current Exhibitions</h2>
+<p>
+  Here is the list of all the current exhibitions coming from Harvard Art
+  Museums API together with the forecast associated to the venue.
+</p>
+
+<ng-container *ngIf="_exhibitions.length">
+  <mat-form-field appearance="standard">
+    <mat-label>Filter exhibition list</mat-label>
+    <input matInput [formControl]="filterControl" />
+  </mat-form-field>
+
+  <section
+    class="exhibitions-list"
+    *ngIf="filteredExhibitions$ | async as exhibitions; else loading"
+  >
+    <mat-action-list>
+      <button
+        mat-list-item
+        *ngFor="let exhibition of exhibitions"
+        (click)="selectExhibition(exhibition)"
+        [ngClass]="{ selected: exhibition.id === selectedExhibition?.id }"
+      >
+        {{ exhibition.title }}
+      </button>
+    </mat-action-list>
+    <app-exhibition-details
+      *ngIf="selectedExhibition; else noSelection"
+      [exhibition]="selectedExhibition"
+    ></app-exhibition-details>
+  </section>
+</ng-container>
+
+<ng-template #loading>
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</ng-template>
+
+<ng-template #noSelection>
+  <p class="no-selection">There is no exhibition selected.</p>
+</ng-template>
