@@ -1,0 +1,38 @@
+@use 'functions' as functions;
+
+:host {
+  display: block;
+  padding: functions.space(4);
+}
+
+section {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+}
+
+.mat-action-list {
+  border-right: 1px solid black;
+  padding-right: functions.space(2);
+}
+
+.selected-exhibition,
+.no-selection {
+  padding-left: functions.space(2);
+}
+
+.no-selection {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  opacity: 0.6;
+}
+
+.exhibition-list-item {
+  p {
+    margin: 0;
+  }
+}
+
+.selected {
+  font-weight: bold;
+}
