@@ -1,0 +1,44 @@
+@use "functions" as functions;
+
+:host {
+  display: block;
+  padding: functions.space(4);
+}
+
+.exhibitions-list {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  margin-top: functions.space(4);
+
+  @media screen and (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.no-selection {
+  padding-left: functions.space(2);
+}
+
+.no-selection {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  opacity: 0.6;
+}
+
+.selected {
+  font-weight: bold;
+}
+
+.mat-action-list {
+  border-right: 1px solid black;
+  padding-right: functions.space(2);
+
+  @media screen and (max-width: 1024px) {
+    border-right: none;
+    padding-right: 0;
+
+    border-bottom: 1px solid black;
+    padding-bottom: functions.space(2);
+  }
+}

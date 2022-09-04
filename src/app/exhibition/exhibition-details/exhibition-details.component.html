@@ -1,0 +1,68 @@
+<h3>{{ exhibition.title }}</h3>
+<p *ngIf="exhibition.description as description; else noDescription">
+  {{ description }}
+</p>
+<section class="venue" *ngIf="exhibition.venue as venue">
+  <h4>
+    <mat-icon class="material-icons-outlined">pin_drop</mat-icon>
+    Venue
+    <mat-chip-list *ngIf="venue.ishamvenue === 1">
+      <mat-chip color="primary" selected
+        ><small>Harvard Art Museum Venue</small></mat-chip
+      >
+    </mat-chip-list>
+  </h4>
+  <p>{{ venue.fullname }}</p>
+  <div class="infos">
+    <p class="label"><span>From:</span></p>
+    <p>{{ venue.begindate | date: "shortDate" }}</p>
+
+    <p class="label"><span>To:</span></p>
+    <p>{{ venue.enddate | date: "shortDate" }}</p>
+
+    <ng-container *ngIf="venue.address1">
+      <p class="label"><span>Address:</span></p>
+      <p>{{ venue.address1 }}</p>
+      <p *ngIf="venue.address2">{{ venue.address2 }}</p>
+    </ng-container>
+
+    <ng-container *ngIf="venue.city">
+      <p class="label"><span>City:</span></p>
+      <p>{{ venue.city }}</p>
+    </ng-container>
+
+    <ng-container *ngIf="venue.state">
+      <p class="label"><span>State:</span></p>
+      <p>{{ venue.state }}</p>
+    </ng-container>
+
+    <ng-container *ngIf="venue.country">
+      <p class="label"><span>Country:</span></p>
+      <p>{{ venue.country }}</p>
+    </ng-container>
+
+    <ng-container *ngIf="venue.zipcode">
+      <p class="label"><span>Zip:</span></p>
+      <p>{{ venue.zipcode }}</p>
+    </ng-container>
+  </div>
+  <button
+    *ngIf="venue.address1 && venue.city && venue.zipcode"
+    mat-flat-button
+    color="accent"
+    (click)="handleGoogleMapsClick()"
+  >
+    Show on Google Maps
+  </button>
+</section>
+<section class="forecast" *ngIf="exhibition.forecast as forecast">
+  <h4>
+    <mat-icon class="material-icons-outlined">cloud</mat-icon>Weather Forecast
+  </h4>
+  <p><span>Today:</span> {{ forecast.today }}</p>
+  <p><span>Tomorrow:</span> {{ forecast.tomorrow }}</p>
+</section>
+
+<ng-template #noDescription>
+  <p class="no-description">No description provided for this exhibition.</p>
+</ng-template>
