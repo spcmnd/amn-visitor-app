@@ -49,19 +49,6 @@ export class ExhibitionPage implements OnDestroy {
     this.selectedExhibition = exhibition;
   }
 
-  public handleGoogleMapsClick(): void {
-    if (!this.selectedExhibition) return;
-
-    const { address1, city, zipcode } = this.selectedExhibition.venue;
-
-    if (!address1 || !city || !zipcode) return;
-
-    window.open(
-      `https://www.google.ch/maps/search/${address1},${city},${zipcode}`,
-      '_blank'
-    );
-  }
-
   public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();

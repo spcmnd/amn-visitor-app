@@ -1,0 +1,78 @@
+@use "functions" as functions;
+
+:host {
+  padding-left: functions.space(2);
+
+  h3 {
+    margin-bottom: functions.space(4);
+  }
+}
+
+.venue {
+  margin-bottom: functions.space(4);
+
+  h4 {
+    align-items: center;
+    display: flex;
+
+    .mat-chip-list {
+      margin-left: functions.space(2);
+    }
+
+    .mat-icon {
+      margin-right: functions.space(1);
+    }
+  }
+
+  .infos {
+    align-items: center;
+    column-gap: functions.space(2);
+    display: grid;
+    grid-template-columns: max-content auto;
+    row-gap: functions.space(1);
+
+    p {
+      margin: 0;
+
+      > span {
+        font-weight: 500;
+      }
+    }
+
+    .label {
+      grid-column: 1;
+    }
+
+    :not(.label) {
+      grid-column: 2;
+    }
+  }
+}
+
+.forecast {
+  h4 {
+    align-items: center;
+    display: flex;
+
+    .mat-icon {
+      margin-right: functions.space(1);
+    }
+  }
+
+  p {
+    margin-bottom: functions.space(1);
+    margin-top: 0;
+
+    > span {
+      font-weight: 500;
+    }
+  }
+}
+
+.no-description {
+  opacity: 0.6;
+}
+
+button {
+  margin-top: functions.space(2);
+}

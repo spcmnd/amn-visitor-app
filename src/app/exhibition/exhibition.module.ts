@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ExhibitionDetailsComponentModule } from './exhibition-details/exhibition-details.component.module';
 import { ExhibitionPage } from './exhibition.page';
 
 @NgModule({
@@ -18,10 +18,10 @@ import { ExhibitionPage } from './exhibition.page';
     MatListModule,
     ReactiveFormsModule,
     MatIconModule,
-    MatChipsModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    ExhibitionDetailsComponentModule,
   ],
   exports: [ExhibitionPage],
 })
