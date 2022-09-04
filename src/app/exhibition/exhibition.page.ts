@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnDestroy } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { map, Observable, of, startWith, Subject, takeUntil } from 'rxjs';
 import { Exhibition } from './exhibition.model';
 import { ExhibitionService } from './exhibition.service';
 
@@ -8,15 +9,61 @@ import { ExhibitionService } from './exhibition.service';
   templateUrl: './exhibition.page.html',
   styleUrls: ['./exhibition.page.scss'],
 })
-export class ExhibitionPage {
-  public exhibitions$: Observable<Exhibition[]>;
+export class ExhibitionPage implements OnDestroy {
+  public filteredExhibitions$: Observable<Exhibition[]>;
   public selectedExhibition?: Exhibition;
+  public filterControl: FormControl<string>;
+  public _exhibitions: Exhibition[];
+  private readonly destroy$: Subject<void>;
 
   constructor(private readonly _exhibitionService: ExhibitionService) {
-    this.exhibitions$ = this._exhibitionService.getExhibitions();
+    this._exhibitions = [];
+    this.filterControl = new FormControl();
+    this.destroy$ = new Subject();
+    this._exhibitionService
+      .getExhibitions()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (exhibitions) => {
+          this._exhibitions = exhibitions;
+        },
+      });
+    this.filteredExhibitions$ = this.filterControl.valueChanges.pipe(
+      startWith(''),
+      map((filterValue) => {
+        if (!filterValue) return this._exhibitions;
+
+        const filteredExhibitions = this._exhibitions.filter((e) =>
+          e.title
+            .trim()
+            .toLowerCase()
+            .includes(filterValue.trim().toLowerCase())
+        );
+
+        return filteredExhibitions;
+      })
+    );
   }
 
   public selectExhibition(exhibition: Exhibition): void {
     this.selectedExhibition = exhibition;
+  }
+
+  public handleGoogleMapsClick(): void {
+    if (!this.selectedExhibition) return;
+
+    const { address1, city, zipcode } = this.selectedExhibition.venue;
+
+    if (!address1 || !city || !zipcode) return;
+
+    window.open(
+      `https://www.google.ch/maps/search/${address1},${city},${zipcode}`,
+      '_blank'
+    );
+  }
+
+  public ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
